@@ -171,8 +171,8 @@ const numUnfundedGames = unfundedGames.length;
 
 const displayStr = `
     A total of ${amountRaised.toLocaleString('en-US')} has been raised for ${numGames.toLocaleString('en-US')}
-    ${numGames > 1 ? "games" : "game"}. Currently, ${numUnfundedGames.toLocaleString('en-US')} 
-    games remains unfunded. We need your help to fund these amazing games!
+    ${(numGames == 1) ? "game" : "games"}. Currently, ${numUnfundedGames.toLocaleString('en-US')} 
+    ${(numUnfundedGames == 1) ? "game" : "games"} remains unfunded. We need your help to fund these amazing games!
 `;
 
 // create a new DOM element containing the template string and append it to the description container
