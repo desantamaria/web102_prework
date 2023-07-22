@@ -1,3 +1,54 @@
+// Plays revealable effect to game cards.
+
+let animation = {
+    revealDistance: 80,
+    initialOpacity: 0,
+    transitionDelay: 0,
+    transitionDuration: '1.5s',
+    transitionProperty: 'all',
+    transitionTimingFunction: 'ease'
+  }
+  
+const windowHeight = window.innerHeight;
+    
+const reveal = () => {
+    if (animationBool == true) {
+        let revealableContainers = document.querySelectorAll(".revealable");
+        for (let i = 0; i < revealableContainers.length; i++) {
+            let topOfRevealableContainer = revealableContainers[i].getBoundingClientRect().top;
+            if (topOfRevealableContainer < windowHeight - animation.revealDistance) {
+                // add the active class to the revealableContainer's classlist
+                revealableContainers[i].classList.add("active");
+            } else {
+                // remove the active class to the revealableContainer's classlist
+                revealableContainers[i].classList.remove("active");
+            }
+        }
+    }
+}
+
+const revealImmediately = () => {
+    let revealableContainers = document.querySelectorAll(".revealable");
+    for (let i = 0; i < revealableContainers.length; i++) {
+        revealableContainers[i].classList.add("active");
+    }        
+}
+  
+  window.addEventListener('scroll', reveal);
+
+//Toggle Animations
+
+let animationBool = true;
+
+const toggleAnimationBtn = document.getElementById('toggle-animations-btn');
+
+toggleAnimationBtn.addEventListener('click', () => {
+    revealImmediately();
+    animationBool = !animationBool;
+});
+
+
+
 /*****************************************************************************
  * Challenge 2: Review the provided code. The provided code includes:
  * -> Statements that import data from games.js
@@ -36,6 +87,11 @@ function addGamesToPage(games) {
         
         // add the class game-card to the list
         gameCard.classList.add("game-card");
+
+        // add class for revealable effect
+        if (animationBool == true) {
+            gameCard.classList.add("revealable");
+        }   
 
         // set the inner HTML using a template literal to display some info 
         // about each game        
@@ -119,6 +175,7 @@ function filterUnfundedOnly() {
 
     // use the function we previously created to add the unfunded games to the DOM
     addGamesToPage(unfundedGames);
+    reveal();
 }
 
 // show only games that are fully funded
@@ -132,6 +189,7 @@ function filterFundedOnly() {
 
     // use the function we previously created to add unfunded games to the DOM
     addGamesToPage(fundedGames);
+    reveal();
 }
 
 // show all games
@@ -140,6 +198,7 @@ function showAllGames() {
 
     // add all games from the JSON data to the DOM
     addGamesToPage(GAMES_JSON);
+    reveal();
 
 }
 
@@ -204,3 +263,8 @@ firstGameContainer.appendChild(firstGame);
 const secondGame = document.createElement("h3");
 secondGame.innerHTML = `${secondName}`;
 secondGameContainer.appendChild(secondGame);
+
+
+
+
+
