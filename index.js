@@ -1,7 +1,7 @@
 // Plays revealable effect to game cards.
 
 let animation = {
-    revealDistance: 80,
+    revealDistance: 60,
     initialOpacity: 0,
     transitionDelay: 0,
     transitionDuration: '1.5s',
@@ -48,7 +48,32 @@ toggleAnimationBtn.addEventListener('click', () => {
 });
 
 
+// Function to search Game
+const input = document.getElementById("search-input");
 
+function searchGame() {    
+    deleteChildElements(gamesContainer);
+
+    let filter = input.value.toUpperCase();
+
+    // use filter() to get a list of games that matches the user's search
+    const filteredGames = GAMES_JSON.filter ( (GAMES_JSON) => {
+        let gameName = GAMES_JSON.name.toUpperCase();
+        
+        return gameName.includes(filter);
+    });
+
+    const storedBool = animationBool;
+    animationBool = false;
+    addGamesToPage(filteredGames);
+    animationBool = storedBool;
+        
+}
+  
+input.addEventListener("keyup", searchGame);
+
+
+import games from './games.js';
 /*****************************************************************************
  * Challenge 2: Review the provided code. The provided code includes:
  * -> Statements that import data from games.js
@@ -78,7 +103,6 @@ const gamesContainer = document.getElementById("games-container");
 
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
-
     // loop over each item in the data
     for (let i = 0; i < games.length; i++) {
         
