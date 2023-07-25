@@ -45,6 +45,13 @@ const toggleAnimationBtn = document.getElementById('toggle-animations-btn');
 toggleAnimationBtn.addEventListener('click', () => {
     revealImmediately();
     animationBool = !animationBool;
+
+    if (animationBool) {
+        toggleAnimationBtn.style.color = "#89FAA0";
+    }else {
+        toggleAnimationBtn.style.color = "#FA9E89";
+    }
+
 });
 
 
